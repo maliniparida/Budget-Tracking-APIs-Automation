@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PlanPro | Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- ================= SIDEBAR ================= -->
+
+<aside class="sidebar">
+
+    <div class="brand">
+        <div class="brand-logo">ES</div>
+
+        <div>
+            <h2>PlanPro</h2>
+            <small>Admin Portal</small>
+        </div>
+    </div>
+
+
+    <nav>
+
+        <button class="nav-btn active" data-page="dashboard">
+            <span>▣</span>
+            Dashboard
+        </button>
+
+        <button class="nav-btn" data-page="events">
+            <span>◫</span>
+            Events
+        </button>
+
+        <button class="nav-btn" data-page="vendors">
+            <span>♙</span>
+            Vendors
+        </button>
+
+        <button class="nav-btn" data-page="budget">
+            <span>₹</span>
+            Budget
+        </button>
+
+        <button class="nav-btn" data-page="sponsorship">
+            <span>◆</span>
+            Sponsorship
+        </button>
+
+        <button class="nav-btn" data-page="alerts">
+            <span>⚠</span>
+            Urgent Alerts
+        </button>
+
+    </nav>
+
+
+    <button id="logoutBtn" class="logout-btn">
+        ⇥ Logout
+    </button>
+
+</aside>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="main">
+
+    <!-- HEADER -->
+
+    <header class="topbar">
+
+        <div>
+            <h3>PlanPro</h3>
+            <span>Event Planning & Management</span>
+        </div>
+
+        <div class="admin-profile">
+
+            <div class="notification">
+                🔔
+            </div>
+
+            <div class="avatar">
+                A
+            </div>
+
+            <div>
+                <strong>Admin</strong>
+                <small>Administrator</small>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================================================= -->
+    <!-- DASHBOARD -->
+    <!-- ================================================= -->
+
+    <section id="dashboard" class="page active">
+
+        <div class="page-heading">
+
+            <div>
+                <small>OVERVIEW</small>
+
+                <h1>Event Management Dashboard</h1>
+
+                <p>
+                    Monitor events, vendors, sponsorships and budget.
+                </p>
+            </div>
+
+            <button class="primary-btn" id="createEventBtn">
+                + Create Event
+            </button>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+
+        <div class="stat-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon">₹</div>
+
+                <div>
+                    <span>Total Budget</span>
+                    <h2 id="dashTotalBudget">₹0</h2>
+                    <small>Allocated budget</small>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon green">₹</div>
+
+                <div>
+                    <span>Budget Left</span>
+                    <h2 id="dashBudgetLeft">₹0</h2>
+                    <small>Available balance</small>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon blue">◫</div>
+
+                <div>
+                    <span>Total Events</span>
+                    <h2 id="dashEvents">0</h2>
+                    <small>All events</small>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon orange">♙</div>
+
+                <div>
+                    <span>Total Vendors</span>
+                    <h2 id="dashVendors">0</h2>
+                    <small>Registered vendors</small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- CHART AREA -->
+
+        <div class="dashboard-grid">
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <div>
+                        <h3>Budget Utilisation</h3>
+                        <small>Overall spending</small>
+                    </div>
+                </div>
+
+
+                <div class="budget-circle">
+
+                    <div class="circle-content">
+                        <strong id="budgetPercent">0%</strong>
+                        <span>Used</span>
+                    </div>
+
+                </div>
+
+
+                <div class="budget-info">
+
+                    <div>
+                        <span>Allocated</span>
+                        <strong id="chartAllocated">₹0</strong>
+                    </div>
+
+                    <div>
+                        <span>Spent</span>
+                        <strong id="chartSpent">₹0</strong>
+                    </div>
+
+                    <div>
+                        <span>Remaining</span>
+                        <strong id="chartRemaining">₹0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <div>
+                        <h3>Event Status</h3>
+                        <small>Current event distribution</small>
+                    </div>
+                </div>
+
+                <div id="statusChart" class="status-chart"></div>
+
+            </div>
+
+
+            <div class="panel wide-panel">
+
+                <div class="panel-title">
+                    <div>
+                        <h3>Budget by Event</h3>
+                        <small>Allocated amount</small>
+                    </div>
+                </div>
+
+                <div id="eventBudgetChart" class="bar-chart"></div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-title">
+                    <div>
+                        <h3>Vendor Allocation</h3>
+                        <small>Assigned vendors</small>
+                    </div>
+                </div>
+
+                <div id="vendorAllocationChart"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RECENT EVENTS -->
+
+        <div class="panel">
+
+            <div class="panel-title">
+
+                <div>
+                    <h3>Recent Events</h3>
+                    <small>Latest event records</small>
+                </div>
+
+                <button class="small-btn" onclick="showPage('events')">
+                    View All
+                </button>
+
+            </div>
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Event</th>
+                            <th>Venue</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Budget</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="dashboardEventsTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- EVENTS -->
+    <!-- ================================================= -->
+
+    <section id="events" class="page">
+
+        <div class="page-heading">
+
+            <div>
+                <small>EVENT MANAGEMENT</small>
+
+                <h1>Events</h1>
+
+                <p>
+                    Create and manage all planned events.
+                </p>
+            </div>
+
+            <button class="primary-btn" id="createEventBtn2">
+                + Create Event
+            </button>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="filter-row">
+
+                <input
+                    type="text"
+                    id="eventSearch"
+                    placeholder="Search event..."
+                >
+
+                <select id="eventStatusFilter">
+
+                    <option value="all">
+                        All Status
+                    </option>
+
+                    <option value="Planned">
+                        Planned
+                    </option>
+
+                    <option value="Ongoing">
+                        Ongoing
+                    </option>
+
+                    <option value="Completed">
+                        Completed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Event</th>
+                            <th>Venue</th>
+                            <th>Date & Time</th>
+                            <th>Manager</th>
+                            <th>Status</th>
+                            <th>Budget</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="eventsTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- VENDORS -->
+    <!-- ================================================= -->
+
+    <section id="vendors" class="page">
+
+        <div class="page-heading">
+
+            <div>
+                <small>VENDOR MANAGEMENT</small>
+
+                <h1>Vendors</h1>
+
+                <p>
+                    Manage vendors and their event assignments.
+                </p>
+            </div>
+
+            <button class="primary-btn" id="addVendorBtn">
+                + Add Vendor
+            </button>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="filter-row">
+
+                <input
+                    type="text"
+                    id="vendorSearch"
+                    placeholder="Search vendor..."
+                >
+
+                <select id="vendorAssignmentFilter">
+
+                    <option value="all">
+                        All Vendors
+                    </option>
+
+                    <option value="assigned">
+                        Assigned
+                    </option>
+
+                    <option value="unassigned">
+                        Unassigned
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Vendor ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Assigned Event</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="vendorsTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- BUDGET -->
+    <!-- ================================================= -->
+
+    <section id="budget" class="page">
+
+        <div class="page-heading">
+
+            <div>
+                <small>FINANCIAL MANAGEMENT</small>
+
+                <h1>Budget</h1>
+
+                <p>
+                    Monitor event spending and remaining balance.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="stat-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon">₹</div>
+
+                <div>
+                    <span>Total Allocated</span>
+                    <h2 id="budgetAllocated">₹0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon orange">₹</div>
+
+                <div>
+                    <span>Amount Spent</span>
+                    <h2 id="budgetSpent">₹0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon blue">₹</div>
+
+                <div>
+                    <span>Pending Bills</span>
+                    <h2 id="budgetPending">₹0</h2>
+                </div>
+            </div>
+
+
+            <div class="stat-card">
+                <div class="stat-icon green">₹</div>
+
+                <div>
+                    <span>Amount Left</span>
+                    <h2 id="budgetBalance">₹0</h2>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-title">
+
+                <div>
+                    <h3>Complete Balance Sheet</h3>
+                    <small>Event-wise financial information</small>
+                </div>
+
+            </div>
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Event</th>
+                            <th>Allocated</th>
+                            <th>Spent</th>
+                            <th>Pending Bills</th>
+                            <th>Resources</th>
+                            <th>Balance</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="budgetTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- SPONSORSHIP -->
+    <!-- ================================================= -->
+
+    <section id="sponsorship" class="page">
+
+        <div class="page-heading">
+
+            <div>
+                <small>FUNDING MANAGEMENT</small>
+
+                <h1>Sponsorship</h1>
+
+                <p>
+                    Track event-wise sponsorship funding.
+                </p>
+            </div>
+
+            <button class="primary-btn" id="addSponsorBtn">
+                + Add Sponsorship
+            </button>
+
+        </div>
+
+
+        <div class="stat-grid">
+
+            <div class="stat-card">
+
+                <div class="stat-icon green">₹</div>
+
+                <div>
+                    <span>Total Sponsorship</span>
+                    <h2 id="totalSponsorship">₹0</h2>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Event</th>
+                            <th>Sponsor</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="sponsorshipTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================================= -->
+    <!-- ALERTS -->
+    <!-- ================================================= -->
+
+    <section id="alerts" class="page">
+
+        <div class="page-heading">
+
+            <div>
+                <small>EMERGENCY COMMUNICATION</small>
+
+                <h1>Urgent Alerts</h1>
+
+                <p>
+                    Send urgent instructions to vendors and coordinators.
+                </p>
+            </div>
+
+            <button class="danger-btn" id="sendAlertBtn">
+                ⚠ Send Urgent Alert
+            </button>
+
+        </div>
+
+
+        <div class="alert-info">
+
+            <div class="alert-icon">
+                ⚠
+            </div>
+
+            <div>
+
+                <h3>Emergency Alert System</h3>
+
+                <p>
+                    An alert will create a visual alarm on this admin
+                    dashboard. The alarm continues until manually stopped.
+                </p>
+
+                <small>
+                    This frontend project does not send real phone
+                    notifications. Real notifications require a backend
+                    or push notification service.
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <h3>Alert History</h3>
+
+            <div id="alertHistory"></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================================================= -->
+<!-- CREATE EVENT MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="eventModal">
+
+    <div class="modal-box large-modal">
+
+        <button class="close-btn" data-close="eventModal">
+            ×
+        </button>
+
+        <h2>Create New Event</h2>
+
+        <p class="modal-subtitle">
+            Enter event details and required resources.
+        </p>
+
+
+        <form id="eventForm">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Event Name</label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Example: Annual Tech Fest"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Event Venue</label>
+
+                    <input
+                        type="text"
+                        name="venue"
+                        placeholder="Example: Convention Hall"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Date</label>
+
+                    <input
+                        type="date"
+                        name="date"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Time</label>
+
+                    <input
+                        type="time"
+                        name="time"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Budget Allocated</label>
+
+                    <input
+                        type="number"
+                        name="budget"
+                        min="0"
+                        placeholder="500000"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Event Manager</label>
+
+                    <input
+                        type="text"
+                        name="manager"
+                        placeholder="Manager name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Sponsor Name</label>
+
+                    <input
+                        type="text"
+                        name="sponsor"
+                        placeholder="Optional"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Sponsorship Amount</label>
+
+                    <input
+                        type="number"
+                        name="sponsorAmount"
+                        min="0"
+                        value="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <h3 class="resource-title">
+                Select Required Resources
+            </h3>
+
+
+            <div class="resource-grid">
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Caterer">
+                    <span>Caterer</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Sound and Light">
+                    <span>Sound & Light</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Decorator">
+                    <span>Decorator</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Seating">
+                    <span>Seating</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Security">
+                    <span>Security</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Printer & Signage Maker">
+                    <span>Printer & Signage</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Entertainment & Talent Agency">
+                    <span>Entertainment</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Photographer & Videographer">
+                    <span>Photography</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Housekeeping & Waste Management">
+                    <span>Housekeeping</span>
+                </label>
+
+                <label class="resource-item">
+                    <input type="checkbox" name="resources" value="Tech & Ticketing Provider">
+                    <span>Tech & Ticketing</span>
+                </label>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    data-close="eventModal"
+                >
+                    Cancel
+                </button>
+
+                <button class="primary-btn">
+                    Create Event
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- VENDOR MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="vendorModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" data-close="vendorModal">
+            ×
+        </button>
+
+        <h2>Add Vendor</h2>
+
+
+        <form id="vendorForm">
+
+            <div class="form-group">
+
+                <label>Vendor Name</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Vendor Category</label>
+
+                <select name="category" required>
+
+                    <option value="">
+                        Select Category
+                    </option>
+
+                    <option>Venue Provider</option>
+                    <option>Caterer & Bartender</option>
+                    <option>AV & Production</option>
+                    <option>Decorator & Florist</option>
+                    <option>Rental Company</option>
+                    <option>Security Agency</option>
+                    <option>Printer & Signage Maker</option>
+                    <option>Entertainment & Talent Agency</option>
+                    <option>Photographer & Videographer</option>
+                    <option>Housekeeping & Waste Management</option>
+                    <option>Tech & Ticketing Provider</option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Email</label>
+
+                <input
+                    type="email"
+                    name="email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Phone</label>
+
+                <input
+                    type="tel"
+                    name="phone"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Assign Event</label>
+
+                <select name="event" id="vendorEventSelect">
+
+                    <option value="">
+                        Unassigned
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    data-close="vendorModal"
+                >
+                    Cancel
+                </button>
+
+                <button class="primary-btn">
+                    Add Vendor
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- SPONSOR MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="sponsorModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" data-close="sponsorModal">
+            ×
+        </button>
+
+        <h2>Add Sponsorship</h2>
+
+
+        <form id="sponsorForm">
+
+            <div class="form-group">
+
+                <label>Event</label>
+
+                <select name="event" id="sponsorEventSelect" required>
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Sponsor Name</label>
+
+                <input
+                    type="text"
+                    name="sponsor"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Amount</label>
+
+                <input
+                    type="number"
+                    name="amount"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    data-close="sponsorModal"
+                >
+                    Cancel
+                </button>
+
+                <button class="primary-btn">
+                    Save Sponsorship
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ALERT MODAL -->
+<!-- ================================================= -->
+
+<div class="modal" id="alertModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" data-close="alertModal">
+            ×
+        </button>
+
+        <h2>Send Urgent Alert</h2>
+
+
+        <form id="alertForm">
+
+            <div class="form-group">
+
+                <label>Send To</label>
+
+                <select name="audience">
+
+                    <option>
+                        All Vendors & Coordinators
+                    </option>
+
+                    <option>
+                        Vendors Only
+                    </option>
+
+                    <option>
+                        Coordinators Only
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Urgency Message</label>
+
+                <textarea
+                    name="message"
+                    rows="5"
+                    maxlength="200"
+                    placeholder="Write urgent instruction..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    class="secondary-btn"
+                    data-close="alertModal"
+                >
+                    Cancel
+                </button>
+
+                <button class="danger-btn">
+                    ⚠ Send Alert
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- ALARM -->
+<!-- ================================================= -->
+
+<div id="alarmOverlay" class="alarm-overlay">
+
+    <div class="alarm-box">
+
+        <div class="alarm-symbol">
+            ⚠
+        </div>
+
+        <h1>URGENT ALERT</h1>
+
+        <p id="alarmText">
+            Emergency notification
+        </p>
+
+        <strong id="alarmTarget">
+            All Vendors & Coordinators
+        </strong>
+
+        <br><br>
+
+        <button
+            id="stopAlarm"
+            class="danger-btn"
+        >
+            🔕 Turn Off Alarm
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- VENDOR DETAILS -->
+<div class="modal" id="vendorDetailsModal">
+
+    <div class="modal-box">
+
+        <button class="close-btn" data-close="vendorDetailsModal">
+            ×
+        </button>
+
+        <h2>Vendor Details</h2>
+
+        <p class="modal-subtitle">
+            Complete vendor information and event assignment.
+        </p>
+
+        <div id="vendorDetails"></div>
+
+    </div>
+
+</div>
+
+<!-- EVENT DETAILS -->
+
+<div class="modal" id="detailsModal">
+
+    <div class="modal-box large-modal">
+
+        <button class="close-btn" data-close="detailsModal">
+            ×
+        </button>
+
+        <h2>Event Details</h2>
+
+        <div id="eventDetails"></div>
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>

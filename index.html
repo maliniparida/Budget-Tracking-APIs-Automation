@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlanPro | Admin Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background:
+                radial-gradient(circle at top left, #263a70, transparent 35%),
+                radial-gradient(circle at bottom right, #172554, transparent 35%),
+                #080b15;
+            color: white;
+        }
+
+        .login-container {
+            width: 420px;
+            padding: 40px;
+            background: rgba(18, 24, 43, 0.95);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 20px;
+            box-shadow:
+                0 25px 60px rgba(0,0,0,0.6),
+                0 0 40px rgba(70,100,255,0.08);
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+            margin: auto;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #4f6cff, #7c4dff);
+            font-size: 25px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(79,108,255,0.35);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9da7bd;
+            margin-bottom: 35px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #dce2f0;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            margin-bottom: 20px;
+            background: #0e1324;
+            color: white;
+            border: 1px solid #303951;
+            border-radius: 10px;
+            outline: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #6178ff;
+            box-shadow: 0 0 0 3px rgba(97,120,255,0.12);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4f6cff, #7048ff);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79,108,255,0.35);
+        }
+
+        .error {
+            min-height: 20px;
+            margin-top: 15px;
+            text-align: center;
+            color: #ff6b6b;
+            font-size: 14px;
+        }
+
+        @media (max-width: 500px) {
+            .login-container {
+                width: 90%;
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="logo">Pp</divm>
+
+        <h1>PlanPro</h1>
+
+        <p class="subtitle">
+            Event Planning & Management
+        </p>
+
+        <form id="loginForm">
+
+            <label for="username">Admin Username</label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter admin username"
+                autocomplete="username"
+                required
+            >
+
+            <label for="password">Password</label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button type="submit" class="login-btn">
+                Login to Dashboard
+            </button>
+
+            <div id="loginError" class="error"></div>
+
+        </form>
+
+    </div>
+
+    <script>
+        document
+            .getElementById("loginForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                const username =
+                    document.getElementById("username").value.trim();
+
+                const password =
+                    document.getElementById("password").value;
+
+                const error =
+                    document.getElementById("loginError");
+
+                if (
+                    username === "admin" &&
+                    password === "admin123"
+                ) {
+                    localStorage.setItem("loggedIn", "true");
+                    window.location.href = "dashboard.html";
+                } else {
+                    error.textContent =
+                        "Invalid username or password.";
+                }
+            });
+    </script>
+
+</body>
+</html>
